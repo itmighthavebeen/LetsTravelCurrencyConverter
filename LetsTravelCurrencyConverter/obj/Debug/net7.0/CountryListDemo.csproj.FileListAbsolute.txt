@@ -1,0 +1,15 @@
+C:\Users\cramsey\source\repos\CountryList\obj\Debug\net7.0\CountryListDemo.csproj.AssemblyReference.cache
+C:\Users\cramsey\source\repos\CountryList\obj\Debug\net7.0\CountryListDemo.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\cramsey\source\repos\CountryList\obj\Debug\net7.0\CountryListDemo.AssemblyInfoInputs.cache
+C:\Users\cramsey\source\repos\CountryList\obj\Debug\net7.0\CountryListDemo.AssemblyInfo.cs
+C:\Users\cramsey\source\repos\CountryList\obj\Debug\net7.0\CountryListDemo.csproj.CoreCompileInputs.cache
+C:\Users\cramsey\source\repos\CountryList\bin\Debug\net7.0\CountryListDemo.exe
+C:\Users\cramsey\source\repos\CountryList\bin\Debug\net7.0\CountryListDemo.deps.json
+C:\Users\cramsey\source\repos\CountryList\bin\Debug\net7.0\CountryListDemo.runtimeconfig.json
+C:\Users\cramsey\source\repos\CountryList\bin\Debug\net7.0\CountryListDemo.dll
+C:\Users\cramsey\source\repos\CountryList\bin\Debug\net7.0\CountryListDemo.pdb
+C:\Users\cramsey\source\repos\CountryList\obj\Debug\net7.0\CountryListDemo.dll
+C:\Users\cramsey\source\repos\CountryList\obj\Debug\net7.0\refint\CountryListDemo.dll
+C:\Users\cramsey\source\repos\CountryList\obj\Debug\net7.0\CountryListDemo.pdb
+C:\Users\cramsey\source\repos\CountryList\obj\Debug\net7.0\CountryListDemo.genruntimeconfig.cache
+C:\Users\cramsey\source\repos\CountryList\obj\Debug\net7.0\ref\CountryListDemo.dll

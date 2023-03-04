@@ -1,0 +1,5 @@
+C:\Users\cramsey\source\repos\CountryList\obj\Debug\net7.0\CountryList.csproj.AssemblyReference.cache
+C:\Users\cramsey\source\repos\CountryList\obj\Debug\net7.0\CountryList.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\cramsey\source\repos\CountryList\obj\Debug\net7.0\CountryList.AssemblyInfoInputs.cache
+C:\Users\cramsey\source\repos\CountryList\obj\Debug\net7.0\CountryList.AssemblyInfo.cs
+C:\Users\cramsey\source\repos\CountryList\obj\Debug\net7.0\CountryList.csproj.CoreCompileInputs.cache
