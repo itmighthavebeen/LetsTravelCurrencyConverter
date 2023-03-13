@@ -87,16 +87,27 @@ namespace LetsTravelCurrencyConverter
                     var apiRate = new ApiRate();
                     apiRate = await CurrencyRateProcessor.LoadRate(toCurrency);
                     Console.WriteLine(apiRate.Result);
+                   
 
                     // Calls a method to get the exchange rate between 2 currencies
                     // float exchangeRate = ConvertMyCurrency.GetExchangeRate(fromCurrency, toCurrency, amount);
                     // Print result of currency exchange rate
-                    Console.WriteLine("FROM " + amount + " " + fromCurrency.ToUpper() + " TO " + toCurrency.ToUpper() + " = " + apiRate.Result);
+                    Console.WriteLine("FROM " + amount + " " + fromCurrency.ToUpper() + " TO " + toCurrency.ToUpper() + " = " + apiRate.Result + " as of date " + apiRate.Date);
                     //Have some fun and check rate
-                    //if (foundRate <= 1)
-                    //   Console.WriteLine("Maybe not the best time to go here, dollar not strong");
-                    //else
-                    //   Console.WriteLine("Great choice of travel to " + input + ". The dollar is STRONG");
+                    if (Decimal.Parse(apiRate.Result) <= 1)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.Write("");
+                        Console.WriteLine("Maybe not the best time to go here, dollar not strong");
+                        Console.ForegroundColor = ConsoleColor.White;
+                    }
+                    else
+                    {
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.Write("");
+                        Console.WriteLine("Great choice of travel to " + input + ". The dollar is STRONG");
+                        Console.ForegroundColor = ConsoleColor.White;
+                    }
                 }
                 else                                            //Does not exist logic
                 {
