@@ -8,7 +8,7 @@ namespace LetsTravelCurrencyConverter
 {
     public class ApiRate
     {
-        public string Result { get; set; }
-        public string Date { get; set; }
+        public string? Result { get; set; }
+        public string? Date { get; set; }
     }
 }

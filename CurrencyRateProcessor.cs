@@ -1,16 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Text.Json;
-using System.Web;
-using System.Net.Http;
-using System.Runtime.ConstrainedExecution;
-using System.IO;
-using System.Net.Http.Json;
-
-namespace LetsTravelCurrencyConverter
+﻿namespace LetsTravelCurrencyConverter
 {
     public class CurrencyRateProcessor
     {
@@ -22,11 +10,30 @@ namespace LetsTravelCurrencyConverter
             {
                 url = $"https://api.exchangerate.host/convert?from=USD&to=" + toCountry;
                 var responseTask = client.GetStringAsync(url);
-                responseTask.Wait();
+                try
+                {
+                    responseTask.Wait();
+                }
+                catch (AggregateException)  //needs internet to call url - found this error thanks to wind storm
+                {
+                    // When waiting on the task, an AggregateException is thrown.
+                    Console.WriteLine("This app requires an internet connection");
+
+                    Environment.Exit(1);
+                }
                 if (responseTask.IsCompleted)
                 {
-                    var result = responseTask.Result;
-                    Console.WriteLine(responseTask.Result);
+                    try
+                    {
+                        var result = responseTask.Result;
+                    }
+                    catch (AggregateException)
+                    {
+                        Console.WriteLine("unable to get needed info from internet");
+                        Environment.Exit(2);
+                    }
+
+                    // Console.WriteLine(responseTask.Result);
                 }
             }
             else
@@ -43,20 +50,10 @@ namespace LetsTravelCurrencyConverter
                 if (response.IsSuccessStatusCode)
                 {
                     ApiRate foundRate = await response.Content.ReadAsAsync<ApiRate>();
-                    // ApiRate foundRate = reponseBody.
-                    Console.WriteLine(foundRate.Date);
-
-                    Console.WriteLine(foundRate.Result);
-                    // Print result of currency exchange rate
-                    //Console.WriteLine("FROM " + amount + " " + fromCurrency.ToUpper() + " TO " + toCurrency.ToUpper() + " = " + foundRate.Rate + " as of date " + foundRate.Date );
                     return foundRate;
-
-
-
                 }
                 else
                 {
-                    Console.WriteLine("Inside  Else");
                     throw new Exception(response.ReasonPhrase);
                 }
             }

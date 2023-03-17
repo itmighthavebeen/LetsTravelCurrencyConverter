@@ -11,7 +11,7 @@ namespace LetsTravelCurrencyConverter
     internal class GetCurrencyType                     //Purpuse of this class is to get the Currency type 
                                                        //for a country passed as english name country
     {
-        public string MoneyType(string Namein)        //Bring in name types by user on console ie United States
+        public string MoneyType(string Namein)        //Bring in name of country by user on console ie United States
         {
             //
             //Need to use EnglishName entered by user and get 2character name ie United States is US
@@ -29,6 +29,18 @@ namespace LetsTravelCurrencyConverter
             return myCurrencyType.ISOCurrencySymbol;
 
         }   //end MoneyType
+        public string MoneySymbol(string Namein)
+        {
+            var regions = CultureInfo.GetCultures(CultureTypes.SpecificCultures).Select(x => new RegionInfo(x.Name));
+            var englishRegion = regions.FirstOrDefault(region => region.EnglishName.Contains(Namein));
+            string Namein2 = englishRegion.ToString();
+            // Searches for the Currency Type for the given NameIn (EnglishCountry Name)
+            //
+            RegionInfo myCurrencyType = new RegionInfo(Namein2);
+            // Console.OutputEncoding = System.Text.Encoding.Unicode;
+            Console.OutputEncoding = System.Text.Encoding.UTF8;
+            return myCurrencyType.CurrencySymbol;
+        }
     }       //end GetCurrencyType
 }           //end namespace
 
