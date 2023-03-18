@@ -19,7 +19,7 @@
                     // When waiting on the task, an AggregateException is thrown.
                     Console.WriteLine("This app requires an internet connection");
 
-                    Environment.Exit(1);
+                    Environment.Exit(1);                                //Error 2 need internet for program to run
                 }
                 if (responseTask.IsCompleted)
                 {
@@ -38,10 +38,13 @@
             }
             else
             {
-                url = $"https://api.exchangerate.host/convert?from=USD&to=USD";                     //WHAT TO DO HERE?
-                Console.WriteLine("ELSE" + url);
+                Console.WriteLine("null value error on country");
+                Environment.Exit(3);                                    //Error value 3 is null value of toCountry
 
             }
+
+            //return rate
+
             using (HttpResponseMessage response = await ApiHelper.ApiClient.GetAsync(url))
             {
                 response.EnsureSuccessStatusCode();

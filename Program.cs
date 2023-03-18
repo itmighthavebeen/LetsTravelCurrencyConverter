@@ -31,7 +31,9 @@ namespace LetsTravelCurrencyConverter
         {
             var regions = CultureInfo.GetCultures(CultureTypes.SpecificCultures).Select(x => new RegionInfo(x.Name));
             var englishRegion = regions.FirstOrDefault(region => region.EnglishName.Contains(country));
+
             if (englishRegion == null) return "🏳";
+
             var countryAbbrev = englishRegion.TwoLetterISORegionName;
             return IsoCountryCodeToFlagEmoji(countryAbbrev);
            
@@ -73,12 +75,16 @@ namespace LetsTravelCurrencyConverter
             //  Do this Until User enters STOP
             //
             Console.WriteLine("This program will give you the value of a foreign currency to $1.");
-            Console.WriteLine("\nIn order for the foreign currency symbols to appear correctly in windows, please set font to  ");
+            Console.WriteLine("\nIn order for the foreign currency symbols to appear correctly in windows,");
+            Console.WriteLine("please set font to  SimSun-ExtB");
+
             ApiHelper.InitializeClient();
+
             bool Continue = true;    // Loop Control
             var getCurrencyType = new GetCurrencyType();      //instance of GetCurrencyType
             int amount = 1;
             string fromCurrency = "USD";
+
             //Read from Console
             while (Continue)        // Continue asking for country name until asked to STOP
             {
@@ -111,6 +117,7 @@ namespace LetsTravelCurrencyConverter
                     // Print result of currency exchange rate
                     Console.WriteLine("You are converting from " + fromCurrency.ToUpper() + " to " + toCurrency.ToUpper());
                     Console.WriteLine( "$" + amount + " " + " EQUALS " + toSymbol  + apiRate.Result +  " as of date " + apiRate.Date);
+
                     //Have some fun and check rate
                     //display method if strong or weak
                     if (Decimal.Parse(apiRate.Result) <= 1)

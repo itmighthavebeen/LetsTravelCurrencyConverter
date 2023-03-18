@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LetsTravelCurrencyConverter
 {
-    public class ApiRate
+    public class ApiRate                //what is needed from api - date and rate
     {
         public string? Result { get; set; }
         public string? Date { get; set; }
