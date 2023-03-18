@@ -92,9 +92,9 @@ namespace LetsTravelCurrencyConverter
                 Console.WriteLine("Or type STOP to quit");
 
                 var input = Console.ReadLine();     //Get input from terminal
-                string s = string.Copy(input);
-                s = System.Threading.Thread.CurrentThread.CurrentCulture.TextInfo.ToTitleCase(s.ToLower());
-                input = string.Copy(s);
+                string caseString = string.Copy(input);
+                caseString = System.Threading.Thread.CurrentThread.CurrentCulture.TextInfo.ToTitleCase(caseString.ToLower());
+                input = string.Copy(caseString);
 
                 //
                 //Validate that the Country exists in CountryList
