@@ -8,39 +8,33 @@ using System.Xml.Linq;
 
 namespace LetsTravelCurrencyConverter
 {
-    internal class GetCurrencyType                     //Purpuse of this class is to get the Currency type 
-                                                       //for a country passed as english name country
+    public class GetCurrencyType                     
     {
-        public string MoneyType(string Namein)        //Bring in name of country by user on console ie United States
+        public struct CurrencyNames
         {
-            //
-            //Need to use EnglishName entered by user and get 2character name ie United States is US
-            //use 2 character name to get currency info
-            //a efficient data structure of all this info to easily reference. get once - use many times. still learning
-            //
-
-            var regions = CultureInfo.GetCultures(CultureTypes.SpecificCultures).Select(x => new RegionInfo(x.Name));
-            var englishRegion = regions.FirstOrDefault(region => region.EnglishName.Contains(Namein));
-            string Namein2 = englishRegion.ToString();
-
-            // Searches for the Currency Type for the given NameIn (EnglishCountry Name)
-            //
-            RegionInfo myCurrencyType = new RegionInfo(Namein2);
-
-            return myCurrencyType.ISOCurrencySymbol;
-
-        }   //end MoneyType
-        public string MoneySymbol(string Namein)
-        {
-            var regions = CultureInfo.GetCultures(CultureTypes.SpecificCultures).Select(x => new RegionInfo(x.Name));
-            var englishRegion = regions.FirstOrDefault(region => region.EnglishName.Contains(Namein));
-            string Namein2 = englishRegion.ToString();
-            // Searches for the Currency Type for the given NameIn (EnglishCountry Name)
-            //
-            RegionInfo myCurrencyType = new RegionInfo(Namein2);
-            Console.OutputEncoding = System.Text.Encoding.UTF8;
-            return myCurrencyType.CurrencySymbol;
+            public string type;
+            public string englishName;
+            public string country;
         }
-    }       //end GetCurrencyType
-}           //end namespace
+        public static CurrencyNames MoneyType(string Namein)        
+        {
+            CurrencyNames values = new();
+           
+            var regions = CultureInfo.GetCultures(CultureTypes.SpecificCultures).Select(x => new RegionInfo(x.Name));
+            var englishRegion = regions.FirstOrDefault(region => region.EnglishName.Contains(Namein));
+
+            string? NameinEnglishCountryName = englishRegion.ToString();
+
+            // Searches for the Currency Type for the given NameIn (EnglishCountry Name)
+            //
+            RegionInfo myCurrencyType = new (NameinEnglishCountryName);
+
+            values.type = myCurrencyType.ISOCurrencySymbol;
+            values.englishName = myCurrencyType.CurrencyEnglishName;
+            values.country = myCurrencyType.EnglishName;
+            return values;
+
+        }  
+    }       
+}        
 

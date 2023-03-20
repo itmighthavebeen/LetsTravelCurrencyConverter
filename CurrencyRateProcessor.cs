@@ -2,7 +2,7 @@
 {
     public class CurrencyRateProcessor
     {
-        static readonly HttpClient client = new HttpClient();        //instantiated once per application
+        static readonly HttpClient client = new HttpClient();       
         public static async Task<ApiRate> LoadRate(string toCountry = "")
         {
             string url = "";
@@ -14,12 +14,12 @@
                 {
                     responseTask.Wait();
                 }
-                catch (AggregateException)  //needs internet to call url - found this error thanks to wind storm
+                catch (AggregateException)  //needs internet to call url 
                 {
                     // When waiting on the task, an AggregateException is thrown.
                     Console.WriteLine("This app requires an internet connection");
 
-                    Environment.Exit(1);                                //Error 2 need internet for program to run
+                    Environment.Exit(1);                                //Error 1 need internet for program to run
                 }
                 if (responseTask.IsCompleted)
                 {
@@ -33,14 +33,12 @@
                         Environment.Exit(2);
                     }
 
-                    // Console.WriteLine(responseTask.Result);
                 }
             }
             else
             {
                 Console.WriteLine("null value error on country");
-                Environment.Exit(3);                                    //Error value 3 is null value of toCountry
-
+                Environment.Exit(3);                                   
             }
 
             //return rate
