@@ -38,6 +38,7 @@ namespace LetsTravelCurrencyConverter
                 int start = s.IndexOf("(") + 1;
                 int end = s.IndexOf(")", start);
                 string parsedCountryNameFromSpecificCultures = s.Substring(start, end - start);
+                string anotherparsedCountryNameFromSpecificCultures = s[start..end];
 
                 //if can find a matching culturename ie. en-US, use it
                 if (Namein == parsedCountryNameFromSpecificCultures)
@@ -47,9 +48,9 @@ namespace LetsTravelCurrencyConverter
                 
             }
 
-            var englishRegion = regions.LastOrDefault(region => region.EnglishName.Contains(Namein));
+            var englishRegion = regions.FirstOrDefault(region => region.EnglishName.Contains(Namein));
 
-            string? NameinEnglishCountryName = englishRegion.ToString();
+            string? NameinEnglishCountryName = englishRegion!.ToString();
 
             string NameToSearchWith = System.String.Empty;
 

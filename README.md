@@ -1,5 +1,5 @@
 # LetsTravelCurrencyConverter
-CodeLouisville C# project - Converts Currency from Country Name to USD
+CodeLouisville C# project - Converts Currency from Country Name to USD by C Ramsey
 
 This Windows console app displays currency valuations to 1 US dollar.  Hints are given at runtime how to enter country names with 
 special characters due to the limitations of windows terminal. Internet connection is needed to get results from this program.
@@ -16,8 +16,24 @@ The culture name is a combination of a two-letter lowercase language code and a 
 An example of culturename is en-US.
 RegionInfo should not be read with a 2 character code such as US, some countries will return nuetral culture error.
 
+NOTE: in testing, Used the ListOfCountriesFromCurltureInfo that was created to determine why some countries were initally not found.
+
 The program uses .net 6.0.
 
-Improvements to make on next release would be to incorporate more logic into methods for cleaner code.
+Input from console:
+full or partial country name, no case requirements
+
+Code Logic:
+Take country and verify against list of countries obtained from CultureInfo
+With Valid country input 
+	- find 3 character ISO code from regioninfo for currency lookup in api
+	- use api to get currency rate and date of latest rate for display back to user
+	- find cuturename from SpecificCulture CultureInfo for lookup of regioninfo to get english currency name to display back to user
+
+Improvements to make on next release would be:
+- to incorporate logic into methods for cleaner code (such as input verification code)
+- use drop down list of countries to eliminate input issues and provide ease of use to user (easier than coding ai for correcting misspellings)
+- find more efficient use of CultureInfo and  RegionInfo lookup
+			
 
 

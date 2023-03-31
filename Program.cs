@@ -1,8 +1,5 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
-using System.Collections.Generic;
-using System.Runtime.ExceptionServices;
-
 namespace LetsTravelCurrencyConverter
 {
     class Program
@@ -19,11 +16,14 @@ namespace LetsTravelCurrencyConverter
 
             while (ContinueLookingForInput)
             {
-            
+
                 Console.ForegroundColor = ConsoleColor.Blue;
                 Console.WriteLine("\n\nHello. Let us convert your currency, \nPlease enter a full country name or the first few letters. ");
                 Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.WriteLine("\nCountries with diacritics must be input as shown below:");
                 Console.WriteLine("For Ivory Coast, enter Ivoire. \nFor Sao Tome and Principe, enter Tom.");
+                Console.WriteLine("For Aland Islands, enter islands. \nFor St. Barthelemy, enter st. ");
+                Console.WriteLine("For Congo DRC enter congo (d ");
                 Console.ForegroundColor = ConsoleColor.White;
                 Console.WriteLine("\nWhich country are you traveling to?");
                 Console.WriteLine("(Type STOP to quit)");
@@ -31,16 +31,16 @@ namespace LetsTravelCurrencyConverter
                 var input = Console.ReadLine();
                 string? caseString = input;
 
-                caseString = System.Threading.Thread.CurrentThread.CurrentCulture.TextInfo.ToTitleCase(caseString.ToLower());
+                caseString = System.Threading.Thread.CurrentThread.CurrentCulture.TextInfo.ToTitleCase(caseString!.ToLower());
 
                 input = caseString;
 
-                bool CountryFoundInList = (listOfCountries.Any(x => x.Contains(input)));
+                bool CountryFoundInList = listOfCountries.Any(x => x.Contains(input));
                 bool InputFromConsoleNotSpaceOrEnter = true;
 
                 //checking for valid input
 
-                if ((String.IsNullOrEmpty(input)) || (String.IsNullOrWhiteSpace(input)))
+                if (String.IsNullOrEmpty(input) || String.IsNullOrWhiteSpace(input))
                     InputFromConsoleNotSpaceOrEnter = false;
 
 
@@ -49,7 +49,7 @@ namespace LetsTravelCurrencyConverter
                 if (CountryFoundInList && InputFromConsoleNotSpaceOrEnter)
 
                 {
-                    string FindCountryNameInList = listOfCountries.Last(s => s.Contains(input));
+                    string FindCountryNameInList = listOfCountries.First(s => s.Contains(input));
 
                     string RightCountryYesNo = "NO";
                     string valueToMatch = input;
@@ -63,8 +63,8 @@ namespace LetsTravelCurrencyConverter
                     //check if the country entered is exact match for a country, else try to guess what was meant to be typed
 
                     if (matchedValue == valueToMatch)
-                    { 
-                       
+                    {
+
                         RightCountryYesNo = "YES";
                         WhatCountryToLookFor = input;
                     }
@@ -72,15 +72,16 @@ namespace LetsTravelCurrencyConverter
                     {
                         Console.WriteLine("Did you mean the country of " + FindCountryNameInList + "?");
                         Console.WriteLine("Enter yes(y) or no(n):");
-                        RightCountryYesNo = Console.ReadLine();
+                        RightCountryYesNo = Console.ReadLine()!;
                     }
 
                     switch (RightCountryYesNo.ToUpper())
                     {
                         case "YES":
+                        case "YE":
                         case "Y":
                             {
-                               
+
                                 GetCurrencyType.CurrencyNames results = GetCurrencyType.MoneyType(WhatCountryToLookFor);
 
                                 var apiRate = new ApiRate();
@@ -95,7 +96,7 @@ namespace LetsTravelCurrencyConverter
                                 //Have some fun and check rate
                                 //display method if strong or weak
 
-                                switch (Decimal.Parse(apiRate.Result))
+                                switch (Decimal.Parse(apiRate.Result!))
                                 {
 
                                     case < 1:
@@ -156,7 +157,7 @@ namespace LetsTravelCurrencyConverter
                 Console.Write("\nPress <Enter> to continue... ");
                 while (Console.ReadKey().Key != ConsoleKey.Enter) { }
                 Console.Clear();
-                
+
             }
             Console.WriteLine("Thank you for converting your money with us!");
         }
