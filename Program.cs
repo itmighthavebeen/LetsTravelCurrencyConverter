@@ -1,5 +1,8 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
+using System.Collections.Generic;
+using System.Runtime.ExceptionServices;
+
 namespace LetsTravelCurrencyConverter
 {
     class Program
@@ -16,10 +19,11 @@ namespace LetsTravelCurrencyConverter
 
             while (ContinueLookingForInput)
             {
+            
                 Console.ForegroundColor = ConsoleColor.Blue;
-                Console.WriteLine("\nHello. Let us convert your currency, \nPlease enter a full country name.");
+                Console.WriteLine("\n\nHello. Let us convert your currency, \nPlease enter a full country name or the first few letters. ");
                 Console.ForegroundColor = ConsoleColor.Yellow;
-                Console.WriteLine("\nFor Ivory Coast, enter Ivoire. \nFor Sao Tome and Principe, enter Tom.");
+                Console.WriteLine("For Ivory Coast, enter Ivoire. \nFor Sao Tome and Principe, enter Tom.");
                 Console.ForegroundColor = ConsoleColor.White;
                 Console.WriteLine("\nWhich country are you traveling to?");
                 Console.WriteLine("(Type STOP to quit)");
@@ -28,38 +32,60 @@ namespace LetsTravelCurrencyConverter
                 string? caseString = input;
 
                 caseString = System.Threading.Thread.CurrentThread.CurrentCulture.TextInfo.ToTitleCase(caseString.ToLower());
+
                 input = caseString;
 
-                //
+                bool CountryFoundInList = (listOfCountries.Any(x => x.Contains(input)));
+                bool InputFromConsoleNotSpaceOrEnter = true;
+
+                //checking for valid input
+
+                if ((String.IsNullOrEmpty(input)) || (String.IsNullOrWhiteSpace(input)))
+                    InputFromConsoleNotSpaceOrEnter = false;
+
+
                 //Validate that the Country exists in CountryList
-                //
-                if (listOfCountries.Any(x => x.Contains(input)) == true)
+
+                if (CountryFoundInList && InputFromConsoleNotSpaceOrEnter)
 
                 {
+                    string FindCountryNameInList = listOfCountries.Last(s => s.Contains(input));
 
-                    GetCurrencyType.CurrencyNames results = GetCurrencyType.MoneyType(input);
-
-                    var apiRate = new ApiRate();
                     string RightCountryYesNo = "NO";
+                    string valueToMatch = input;
+                    var matchedValue = listOfCountries.FirstOrDefault(x => x.Equals(valueToMatch, StringComparison.OrdinalIgnoreCase));
 
-                    apiRate = await CurrencyRateProcessor.LoadRate(results.type);
 
-                    //added this code late in the game while checking all UN nations. Special characters causiing issues
-                    if (listOfCountries.Contains(input) == true)
-                    {
+                    //added this code late in the game while checking all UN nations. Special characters causing issues like in Ivoiry Coast
+
+                    string WhatCountryToLookFor = FindCountryNameInList;
+
+                    //check if the country entered is exact match for a country, else try to guess what was meant to be typed
+
+                    if (matchedValue == valueToMatch)
+                    { 
+                       
                         RightCountryYesNo = "YES";
+                        WhatCountryToLookFor = input;
                     }
                     else
                     {
-                        Console.WriteLine("Did you mean the country of " + results.country + " ?");
-                        Console.WriteLine("Enter yes or no:");
+                        Console.WriteLine("Did you mean the country of " + FindCountryNameInList + "?");
+                        Console.WriteLine("Enter yes(y) or no(n):");
                         RightCountryYesNo = Console.ReadLine();
                     }
 
                     switch (RightCountryYesNo.ToUpper())
                     {
                         case "YES":
+                        case "Y":
                             {
+                               
+                                GetCurrencyType.CurrencyNames results = GetCurrencyType.MoneyType(WhatCountryToLookFor);
+
+                                var apiRate = new ApiRate();
+                                apiRate = await CurrencyRateProcessor.LoadRate(results.type);
+
 
                                 // Print result of currency exchange rate
                                 Console.ForegroundColor = ConsoleColor.Cyan;
@@ -102,6 +128,7 @@ namespace LetsTravelCurrencyConverter
                                 break;
                             }
                         case "NO":
+                        case "N":
                             {
                                 Console.WriteLine("Please try again and be more specific with the country name");
                                 break;
@@ -113,14 +140,23 @@ namespace LetsTravelCurrencyConverter
                 else
                 {
                     if (input.ToUpper() == "STOP")
+                    {
                         ContinueLookingForInput = false;
+                        break;
+                    }
                     else
                     {
+                        Console.ForegroundColor = ConsoleColor.Red;
                         Console.WriteLine("\nYou have typed in an invalid or misspelled country name.");
+                        Console.ForegroundColor = ConsoleColor.White;
                         Console.WriteLine("\nSome country names use & for and or St. for saint. For example St. Kitts & Nevis");
                         Console.WriteLine("Please try again");
                     }
                 }
+                Console.Write("\nPress <Enter> to continue... ");
+                while (Console.ReadKey().Key != ConsoleKey.Enter) { }
+                Console.Clear();
+                
             }
             Console.WriteLine("Thank you for converting your money with us!");
         }

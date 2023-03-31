@@ -9,9 +9,11 @@ namespace LetsTravelCurrencyConverter
 {
     internal class CreateListOfValidCountries
     {
+     
         public static List<string> CountryList()
+          
         {
-            List<string> CultureList = new();
+            List<string> ListOfCountriesFromCultureInfo = new();
             
             CultureInfo[] getCultureInfo = CultureInfo.GetCultures(CultureTypes.SpecificCultures);
 
@@ -19,16 +21,17 @@ namespace LetsTravelCurrencyConverter
             {
                 RegionInfo GetRegionInfo = new(getCulture.Name);
 
-                //adding each county English Name into the arraylist of CultureList
-                if (!CultureList.Contains(GetRegionInfo.EnglishName))
-                {
-                    CultureList.Add(GetRegionInfo.EnglishName);
+                //adding each county English Name into the stringlist of ListOfCountriesFromCultureInfo only once
+               if (!ListOfCountriesFromCultureInfo.Contains(GetRegionInfo.EnglishName))
+               {
+                    ListOfCountriesFromCultureInfo.Add(GetRegionInfo.EnglishName );
+                                 
                 }
             }
 
-            CultureList.Sort();
+            ListOfCountriesFromCultureInfo.Sort();
 
-            return CultureList;
+            return ListOfCountriesFromCultureInfo;
         }
     }
 }
