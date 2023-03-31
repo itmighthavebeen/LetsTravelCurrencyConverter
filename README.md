@@ -20,6 +20,11 @@ NOTE: in testing, Used the ListOfCountriesFromCurltureInfo that was created to d
 
 The program uses .net 6.0.
 
+KNOWN ISSUE with Teminal Input: Had issues with inputting diacritics or accents that are found in certain country names.  Instead of figuring out
+Windows console issues with diacritics and how to fix this for the handful of countries, I displayed info to the user on how to get to these countries. 
+Would rather spend time on code than windows console, because hopefully in mass use, this would be a drop down and not user input. All countries
+work, just for that handful have to use the hint provided.
+
 Input from console:
 full or partial country name, no case requirements
 
